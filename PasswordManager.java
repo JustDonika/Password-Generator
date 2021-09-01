@@ -27,11 +27,11 @@ public class PasswordManager{
     private static int numSpecial = 2;
     /**
      * If executed via command terminal, the arguments should be in the form:
-     * [general password] [name of what it's used for] followed by either ["t"] (use defaults) OR
-     * ["f"] + [password length] + [min number digits] + [min number capital] + [min number lowercase] + [min number special characters]
+     * [general password] [name of what it's used for] followed by either ["y"] (use defaults) OR
+     * ["n"] + [password length] + [min number digits] + [min number capital] + [min number lowercase] + [min number special characters]
      * EG: 12dworssap NotMyMethDealer t or 12dworssap NotMyMethDealer f 12 4 2 0 2
      */
-    public static void main(String[] args) throws IOException {
+    public void main(String[] args) throws IOException {
         if(args.length==3){
             generalPassword=args[0];
             passPurpose=args[1];
@@ -87,19 +87,20 @@ public class PasswordManager{
         }
         //catch nonviable requirements
         if(numSpecial+numCapital+numLowercase+numDigits>passwordLength){
-            System.out.println("Impossible to comply with prerequisites; try increasing password length, or reducing other requirements.");
-            return;
+            throw new IOException("Impossible to comply with prerequisites; try increasing password length, or reducing other requirements.");
+        }
+        if(generalPassword.length()==0 || passPurpose.length()==0){
+            throw new IOException("One or both of your general password or password purpose are zero characters long, please input a non-zero length string.");
         }
         //All the inputs have been received, so we can now run the algorithm and find the desired password.
         int startPoint = findStart();
         if(startPoint==0){
-            System.out.println("Invalid start point produced");
-            return;
+            throw new IOException("Invalid start point produced");
         }
         System.out.println(output(startPoint));
     }
 
-    private static Integer findStart() throws IOException {
+    public Integer findStart() throws IOException {
         sqrt=Files.readString(Path.of("TenMillionSqrt(2).txt"));
         //Finds the start point for algorithm.
         double startPointFinder = 0;
@@ -114,8 +115,7 @@ public class PasswordManager{
                 o++;
             }
             if(index==-1){
-                System.out.println("Invalid character in password.");
-                return 0;
+                throw new IOException("Invalid character in password.");
             }
             startPointFinder+=Math.sqrt(primes[i])*primes[index];
         }
@@ -130,8 +130,7 @@ public class PasswordManager{
                 o++;
             }
             if(index==-1){
-                System.out.println("Invalid character in password.");
-                return 0;
+                throw new IOException("Invalid character in password.");
             }
             startPointFinder+=Math.sqrt(primes[i])*primes[index];
         }
@@ -149,7 +148,7 @@ public class PasswordManager{
         return startPoint;
     }
 
-    private static String output(int spotInSqrt) {
+    public String output(int spotInSqrt) {
         //Algorithm
         ArrayList<Character> outputChars = new ArrayList<>();
         int index = 0;
@@ -169,12 +168,10 @@ public class PasswordManager{
                 if(charsOrder[o]==generalPassword.charAt(passwordSpot)){
                     index=o;
                     o=100000;
-                    if(passwordSpot<generalPassword.length()){
-                        passwordSpot++;
-                    }
-                    else{
-                        passwordSpot=0;
-                    }
+                    passwordSpot++;
+                }
+                if(passwordSpot>=generalPassword.length()){
+                    passwordSpot=0;
                 }
                 o++;
             }
@@ -195,6 +192,10 @@ public class PasswordManager{
                 if(charsOrder[o]==generalPassword.charAt(passwordSpot)){
                     index=o;
                     o=100000;
+                    passwordSpot++;
+                }
+                if(passwordSpot>=generalPassword.length()){
+                    passwordSpot=0;
                 }
                 o++;
             }
@@ -215,12 +216,10 @@ public class PasswordManager{
                 if(charsOrder[o]==generalPassword.charAt(passwordSpot)){
                     index=o;
                     o=100000;
-                    if(passwordSpot<generalPassword.length()){
-                        passwordSpot++;
-                    }
-                    else{
-                        passwordSpot=0;
-                    }
+                    passwordSpot++;
+                }
+                if(passwordSpot>=generalPassword.length()){
+                    passwordSpot=0;
                 }
                 o++;
             }
@@ -240,12 +239,10 @@ public class PasswordManager{
                 if(charsOrder[o]==generalPassword.charAt(passwordSpot)){
                     index=o;
                     o=100000;
-                    if(passwordSpot<generalPassword.length()){
-                        passwordSpot++;
-                    }
-                    else{
-                        passwordSpot=0;
-                    }
+                    passwordSpot++;
+                }
+                if(passwordSpot>=generalPassword.length()){
+                    passwordSpot=0;
                 }
                 o++;
             }
@@ -265,12 +262,10 @@ public class PasswordManager{
                 if(charsOrder[o]==generalPassword.charAt(passwordSpot)){
                     index=o;
                     o=100000;
-                    if(passwordSpot<generalPassword.length()){
-                        passwordSpot++;
-                    }
-                    else{
-                        passwordSpot=0;
-                    }
+                    passwordSpot++;
+                }
+                if(passwordSpot>=generalPassword.length()){
+                    passwordSpot=0;
                 }
                 o++;
             }
