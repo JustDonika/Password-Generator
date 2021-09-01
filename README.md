@@ -11,3 +11,7 @@ For a more formal and cryptographically secure commercial product, this algorith
 
 ## Cybersecurity
 This program does not claim to be any more than a proof of concept, and as such, while I cannot see any obvious vulnerabilities (assuming this remains too small to bother reverse engineering for malicious actors), that does not mean there are none. If you wish to make use of this program for any actual password management, I strongly recommend at least creating a private repository with a slightly edited version of the algorithm shared here, just in case, so that at least the reverse engineering vulnerability is gone.
+
+## Updates:
+- A small set of tests produced; still inconsistency issues with some inputs, but a start has been made on a more formal testing process.
+- Initially was operable purely via text based interface; this has been split into a separate class for text based start up, and one to operate a very simple Swing GUI if the user prefers.
