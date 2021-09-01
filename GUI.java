@@ -28,8 +28,8 @@ public class GUI extends JFrame implements WindowListener{
             }
         }));
         but.setBounds(75, 150, 100, 30);
-        g.questionTitle=new JLabel(" What is your general password? ");
-        g.questionTitle.setBounds(20, 50, 200, 50);
+        g.questionTitle=new JLabel("What is your general password");
+        g.questionTitle.setBounds(30, 80, 200, 50);
         g.f.add(but);
         g.f.add(g.questionTitle);
         g.f.setSize(300,400);
@@ -45,7 +45,7 @@ public class GUI extends JFrame implements WindowListener{
         }
         String generalPassword=g.ta.getText();
         g.ta.setText("");
-        g.questionTitle.setText("What do you need a password for?");
+        g.questionTitle.setText("What do you need a password for");
 
         //Asks again for purpose
         stopThread[0] = "no";
@@ -82,7 +82,13 @@ public class GUI extends JFrame implements WindowListener{
             try {
                 PasswordManager pm = new PasswordManager();
                 pm.main(new String[]{generalPassword, purposePassword, "y", passLength, numNumerals, numCapitals, numLowercase, numSpecial});
-                g.ta.setText(pm.output(pm.findStart()));
+                if(pm.output(pm.findStart()).length()>15){
+                    g.ta.setText(pm.output(pm.findStart()));
+                    g.ta.setBounds(50, 30, 150, 20);
+                }
+                else{
+                    g.ta.setText(pm.output(pm.findStart()));
+                }
             }
             catch(IOException ie){
 
