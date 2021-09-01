@@ -25,7 +25,7 @@ public class PasswordTests {
     @Test // zero characters for both
     public void test4(){
         try {
-            PasswordManager.main(new String[]{"", "","f"});
+            TextOrigin.main(new String[]{"", "","f"});
         }
         catch(IOException ie){
             return;
@@ -33,10 +33,9 @@ public class PasswordTests {
         fail();
     }
 
-
     public void runManager(String password, String purpose, int length, int capitals, int lowercase, int digits, int special) {
         try {
-            PasswordManager.main(new String[]{password, purpose,"t", "" + length, "" + capitals, "" + lowercase, "" + digits, "" + special});
+            TextOrigin.main(new String[]{password, purpose,"t", "" + length, "" + capitals, "" + lowercase, "" + digits, "" + special});
         }
         catch(IOException ie){
             fail(ie);
@@ -45,7 +44,7 @@ public class PasswordTests {
 
     public void runManager(String password, String purpose) {
         try {
-            PasswordManager.main(new String[]{password, purpose,"f"});
+            TextOrigin.main(new String[]{password, purpose,"f"});
         }
         catch(IOException ie){
             fail(ie);
